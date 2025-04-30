@@ -35,6 +35,18 @@ function getAdvice() {
           return dateStr === today && hour >= 6 && hour <= 24;
         });
 
+        // const forecasts = data.list.filter(f => {
+        //   const utc = new Date(f.dt_txt);
+        //   const jst = new Date(utc.getTime() + 9 * 60 * 60 * 1000); // JSTに変換
+        //   const year = jst.getFullYear();
+        //   const month = String(jst.getMonth() + 1).padStart(2, '0');
+        //   const date = String(jst.getDate()).padStart(2, '0');
+        //   const dateStr = `${year}-${month}-${date}`;
+        //   const hour = jst.getHours();
+        //   return dateStr === today && hour >= 6 && hour <= 24;
+        // });
+        
+        
         if (forecasts.length === 0) {
           alert("今日の天気情報が取得できませんでした。");
           return;
@@ -43,6 +55,11 @@ function getAdvice() {
         const temps = forecasts.map(f => f.main.temp);
         const minTemp = Math.min(...temps);
         const maxTemp = Math.max(...temps);
+
+        //デバッグ
+        console.log(`data: ${JSON.stringify(data)}`);
+        console.log(`forecasts: ${JSON.stringify(forecasts)}`);
+        console.log(`temps: ${temps}`);
 
         const isRainy = forecasts.some(f => f.weather[0].main.includes("Rain") || f.weather[0].description.includes("雨"));
 
@@ -69,12 +86,12 @@ function getAdvice() {
 
         // OpenWeatherMapの現在地の天気情報へのリンクを追加
         const weatherLink = `https://openweathermap.org/city/${data.city.id}`;
-        message += `\n🔗 詳細な天気情報はこちら: ${weatherLink}`;
-
-        message += "\nver25043022";
+        // message += `\n🔗 詳細な天気情報はこちら: ${weatherLink}`;
+        message += `\n\n🔗 詳細な天気情報はこちら: <a href="${weatherLink}" target="_blank" rel="noopener noreferrer">${weatherLink}</a>`;
+        message += "\n\n\nver25043022";
 
         alert(message);
-        document.getElementById("result").innerText = message;
+        document.getElementById("result").innerHTML = message.replace(/\n/g, "<br>");
       })
       .catch(() => {
         alert("天気データの取得に失敗しました。");

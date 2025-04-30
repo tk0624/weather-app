@@ -1,0 +1,13 @@
+body {
+  font-family: Arial, sans-serif;
+  text-align: center;
+  padding: 2em;
+}
+button {
+  padding: 1em 2em;
+  font-size: 1.2em;
+}
+#output {
+  margin-top: 2em;
+  font-size: 1.2em;
+}

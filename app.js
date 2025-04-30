@@ -26,7 +26,7 @@ function getWeather() {
         const rain = data.rain ? data.rain["1h"] || 0 : 0;
 
         let message = "ver25043018 \n"
-        message += "あなたの現在地：${city}\n\n";
+        message += 'あなたの現在地：${city}\n\n';
 
         // 傘の要否
         if (weather.includes("Rain") || rain > 0) {

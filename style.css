@@ -1,4 +1,4 @@
-body {
+/* body {
   font-family: Arial, sans-serif;
   text-align: center;
   padding: 2em;
@@ -10,4 +10,36 @@ button {
 #output {
   margin-top: 2em;
   font-size: 1.2em;
+}
+
+body {
+  font-family: sans-serif;
+  padding: 2em;
+  text-align: center;
+  background-color: #f4f8fb;
+} */
+/*  */
+h1 {
+  font-size: 1.8em;
+  margin-bottom: 1em;
+}
+
+button {
+  padding: 12px 24px;
+  font-size: 1.2em;
+  border: none;
+  background-color: #007aff;
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #005fcc;
+}
+
+#result {
+  margin-top: 2em;
+  font-size: 1.2em;
+  white-space: pre-line;
 }

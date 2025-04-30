@@ -1,5 +1,4 @@
-const API_KEY = '2a99ebbd1ef25cd7d6f785cb993e6e16'; // ここに OpenWeatherMap の API キーを入れてください
-// const API_KEY = 'YOUR_API_KEY'; // ← OpenWeatherMapのAPIキーをここに
+const API_KEY = '2a99ebbd1ef25cd7d6f785cb993e6e16'; // OpenWeatherMapのAPIキーをここに
 
 function getAdvice() {
   if (!navigator.geolocation) {
@@ -24,12 +23,13 @@ function getAdvice() {
       .then(data => {
         const nowJST = new Date(new Date().toLocaleString("ja-JP", { timeZone: "Asia/Tokyo" }));
         const today = nowJST.toISOString().slice(0, 10); // "YYYY-MM-DD"
-        
+
         const cityName = data.city?.name || "不明な地域";
+        const countryCode = data.city?.country || "";
 
         const forecasts = data.list.filter(f => {
           const utc = new Date(f.dt_txt);
-          const jst = new Date(utc.getTime() + 9 * 60 * 60 * 1000);
+          const jst = new Date(utc.getTime() + 9 * 60 * 60 * 1000); // JSTに変換
           const hour = jst.getHours();
           const dateStr = jst.toISOString().slice(0, 10);
           return dateStr === today && hour >= 6 && hour <= 24;
@@ -39,15 +39,14 @@ function getAdvice() {
           alert("今日の天気情報が取得できませんでした。");
           return;
         }
-        
+
         const temps = forecasts.map(f => f.main.temp);
         const minTemp = Math.min(...temps);
         const maxTemp = Math.max(...temps);
 
         const isRainy = forecasts.some(f => f.weather[0].main.includes("Rain") || f.weather[0].description.includes("雨"));
 
-        let message = "ver25043020 \n\n";
-        message += `📍 あなたの現在地：${cityName}\n\n`;
+        let message = `📍 あなたの現在地：${cityName}（${countryCode}）\n\n`;
         message += `📍 現在地の今日の天気情報（${today}）\n`;
         message += `🌡️ 最高気温：${maxTemp.toFixed(1)}℃\n`;
         message += `❄️ 最低気温：${minTemp.toFixed(1)}℃\n`;
@@ -67,6 +66,12 @@ function getAdvice() {
         } else {
           message += "👕 過ごしやすい気温です。薄手でOK。";
         }
+
+        // OpenWeatherMapの現在地の天気情報へのリンクを追加
+        const weatherLink = `https://openweathermap.org/city/${data.city.id}`;
+        message += `\n🔗 詳細な天気情報はこちら: ${weatherLink}`;
+
+        message += "\nver25043022";
 
         alert(message);
         document.getElementById("result").innerText = message;

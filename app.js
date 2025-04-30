@@ -25,27 +25,28 @@ function getWeather() {
         const tempMax = data.main.temp_max;
         const rain = data.rain ? data.rain["1h"] || 0 : 0;
 
-        let message = `📍 あなたの現在地：${city}\n\n`;
+        let message = "ver25043018 \n"
+        message += "あなたの現在地：${city}\n\n";
 
         // 傘の要否
         if (weather.includes("Rain") || rain > 0) {
-          message += "☔ 雨が降りそうです。傘を持っていきましょう。\n";
+          message += "雨が降りそうです。傘を持っていきましょう。\n";
         } else {
-          message += "☀️ 今日は雨の心配はなさそうです。\n";
+          message += "今日は雨の心配はなさそうです。\n";
         }
 
         // 服装提案
         if (temp < 10) {
-          message += "🧥 寒いのでコートを着ましょう。\n";
+          message += "寒いのでコートを着ましょう。\n";
         } else if (temp < 20) {
-          message += "🧣 薄手の上着があると安心です。\n";
+          message += "薄手の上着があると安心です。\n";
         } else {
-          message += "👕 暖かいので軽装で大丈夫そうです。\n";
+          message += "暖かいので軽装で大丈夫そうです。\n";
         }
 
         // 朝晩の冷え込み
         if (tempMin < 10 && temp - tempMin > 5) {
-          message += "🌙 朝晩は冷えるかもしれません。重ね着で調整を。";
+          message += "朝晩は冷えるかもしれません。重ね着で調整を。";
         }
 
         document.getElementById("output").innerText = message;

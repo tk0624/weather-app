@@ -1,4 +1,4 @@
-const API_KEY = 'YOUR_API_KEY'; // ここに OpenWeatherMap の API キーを入れてください
+const API_KEY = '2a99ebbd1ef25cd7d6f785cb993e6e16'; // ここに OpenWeatherMap の API キーを入れてください
 
 function getWeather() {
   if (!navigator.geolocation) {

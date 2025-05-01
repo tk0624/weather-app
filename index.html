@@ -5,6 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>天気アドバイザー</title>
   <link rel="stylesheet" href="style.css" />
+
+  <!-- ✅ PWA対応追加 -->
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#007aff">
 </head>
 <body>
   <div class="container">
@@ -14,6 +18,16 @@
     <button onclick="getAdvice()">アドバイスを表示</button>
     <div id="result" class="result-box"></div>
   </div>
+
   <script src="app.js"></script>
+
+  <!-- ✅ Service Worker 登録用スクリプト追加 -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('sw.js')
+        .then(() => console.log("SW 登録成功"))
+        .catch(err => console.log("SW 登録失敗:", err));
+    }
+  </script>
 </body>
 </html>
